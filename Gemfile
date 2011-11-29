@@ -8,6 +8,7 @@ gem 'rails', '3.1.1'
 gem 'haml-rails'
 gem 'mysql'
 gem 'uuidtools'
+gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,6 +35,10 @@ gem 'jquery-rails'
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
+end
+
+group :development do
+  gem "mongrel", '1.2.0.pre2'
 end
 
 group :test, :development do
