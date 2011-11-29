@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_url, :notice => "Signed up!"
     else
+      flash.now[:error] = 'There was a problem creating your account'
       render "new"
     end
   end
