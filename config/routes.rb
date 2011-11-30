@@ -1,4 +1,6 @@
 Todo::Application.routes.draw do
+  get "elements/index"
+
   get 'login' => 'sessions#new', :as => 'login'
   get 'logout' => 'sessions#destroy', :as => 'logout'
   get 'sign_up' => 'users#new', :as => 'sign_up'

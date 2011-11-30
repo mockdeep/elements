@@ -1,0 +1,6 @@
+%li
+  = element.title
+  - if element.children.any?
+    %ul
+      - element.children.each do |child|
+        = render :partial => 'tree', :locals => { :element => child }

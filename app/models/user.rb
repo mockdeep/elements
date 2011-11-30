@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   include UUIDHelper
   attr_accessor :password
   attr_accessible :email, :username, :password, :password_confirmation
+
+  has_many :elements
+
   before_save :encrypt_password
 
   validates_presence_of :email
