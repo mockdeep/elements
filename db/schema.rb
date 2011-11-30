@@ -11,10 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107003759) do
+ActiveRecord::Schema.define(:version => 20111129234414) do
 
-  create_table "users", :id => false, :force => true do |t|
-    t.string   "id",            :limit => 36, :null => false
+  create_table "elements", :force => true do |t|
+    t.string   "user_id",       :limit => 36, :null => false
+    t.string   "parent_id",     :limit => 36
+    t.string   "title"
+    t.datetime "starts_at"
+    t.datetime "due_at"
+    t.datetime "done_at"
+    t.integer  "time_required"
+    t.integer  "value"
+    t.integer  "urgency"
+    t.integer  "times_done"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "elements", ["id"], :name => "index_elements_on_id", :unique => true
+  add_index "elements", ["parent_id"], :name => "index_elements_on_parent_id"
+  add_index "elements", ["user_id"], :name => "index_elements_on_user_id"
+
+  create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "username"
     t.string   "password_hash"
@@ -24,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20111107003759) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["id"], :name => "index_users_on_id"
+  add_index "users", ["id"], :name => "index_users_on_id", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end
