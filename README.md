@@ -5,7 +5,7 @@ Install rvm
 -----------
 * At the command line
 * `bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)`
-* quit the shell and restart
+* Quit the shell and restart
 * `rvm install 1.9.3`
 
 Fork the project
@@ -15,7 +15,7 @@ Fork the project
 
 Clone the project
 -----------------
-* copy the git url
+* Copy the git url
 * At the command line:
   * `git clone [git url]`
   * `cd todo`
@@ -23,8 +23,8 @@ Clone the project
 
 Install required packages
 -------------------------
-* install nodejs
-* run `bundle` from the project directory
+* Install nodejs
+* Run `bundle` from the project directory
 
 Starting a new feature
 ----------------------
