@@ -28,6 +28,8 @@ Install required packages
 
 Starting a new feature
 ----------------------
+* Check out our list of things to do:
+  https://workflowy.com/shared/e136ab83-e114-4a93-76b5-1a64dcfff8b0/
 * Create a new branch:
   * `git checkout -b my_cool_new_feature`
 * Make changes
