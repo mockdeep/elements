@@ -1,0 +1,22 @@
+= form_for @element do |f|
+  - if @element.parent_id
+    .field
+      = f.hidden_field :parent_id
+  .field
+    = f.label :title
+    = f.text_field :title
+    = error_message_on(@element, :title)
+  .field
+    = f.label 'Time required (in hours)'
+    = f.text_field :time_required
+    = error_message_on(@element, :time_required)
+  .field
+    = f.label :value
+    = f.select :value, options_for_select(0..9)
+    = error_message_on(@element, :value)
+  .field
+    = f.label :urgency
+    = f.select :urgency, options_for_select(0..9)
+    = error_message_on(@element, :urgency)
+  .actions
+    = f.submit

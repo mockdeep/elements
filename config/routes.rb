@@ -8,4 +8,5 @@ Todo::Application.routes.draw do
 
   resources :users, :except => [ :destroy ]
   resources :sessions, :except => [ :edit, :update, :show ]
+  resources :elements, :except => [ :show ]
 end
