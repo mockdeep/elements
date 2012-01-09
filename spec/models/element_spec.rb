@@ -42,6 +42,7 @@ describe Element do
   it 'should mark elements as done' do
     pending
     @element1.done!
+    @element1.should be_done
     @element1.done_at.should_not be_nil
   end
 
@@ -58,5 +59,19 @@ describe Element do
     @element1.should be_done
     @element1.undo
     @element1.should_not be_done
+    @element1.done_at.should be_nil
+  end
+
+  it 'should mark child elements as done' do
+    pending
+    @element1.done!
+    @element2.reload.should be_done
+    @element2.done_at.should_not be_nil
+  end
+
+  # this test can be removed once satisfied
+  it 'should not respond to done=' do
+    pending
+    @element1.should_not respond_to :done=
   end
 end
