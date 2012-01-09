@@ -10,7 +10,7 @@ class Element < ActiveRecord::Base
     :foreign_key => :parent_id,
     :dependent => :destroy
 
-  validates_presence_of :title
+  validates_presence_of :title, :user
 
   scope :root_elements, :conditions => 'parent_id IS NULL'
 
