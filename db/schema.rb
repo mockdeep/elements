@@ -13,7 +13,8 @@
 
 ActiveRecord::Schema.define(:version => 20111129234414) do
 
-  create_table "elements", :force => true do |t|
+  create_table "elements", :id => false, :force => true do |t|
+    t.string   "id",            :limit => 36, :null => false
     t.string   "user_id",       :limit => 36, :null => false
     t.string   "parent_id",     :limit => 36
     t.string   "title"
@@ -32,7 +33,8 @@ ActiveRecord::Schema.define(:version => 20111129234414) do
   add_index "elements", ["parent_id"], :name => "index_elements_on_parent_id"
   add_index "elements", ["user_id"], :name => "index_elements_on_user_id"
 
-  create_table "users", :force => true do |t|
+  create_table "users", :id => false, :force => true do |t|
+    t.string   "id",            :limit => 36, :null => false
     t.string   "email"
     t.string   "username"
     t.string   "password_hash"
