@@ -9,19 +9,22 @@ describe Element do
       :password_confirmation => 'pizza',
     )
 
-    @element1 = Element.create(:user => user, :title => 'do laundry')
-    @element2 = Element.create(:user => user, :title => 'put clothes in washer')
-    @element1.children << @element2
+    @parent_element = Element.create(:user => user, :title => 'do laundry')
+    @child_element = Element.create(
+      :user => user,
+      :title => 'put clothes in washer'
+    )
+    @parent_element.children << @child_element
   end
 
   it 'should destroy child elements' do
-    @element1.destroy
-    Element.find_by_id(@element2.id).should be_nil
+    @parent_element.destroy
+    Element.find_by_id(@child_element.id).should be_nil
   end
 
   it 'should not destroy parent element' do
-    @element2.destroy
-    Element.find_by_id(@element1.id).should_not be_nil
+    @child_element.destroy
+    Element.find_by_id(@parent_element.id).should_not be_nil
   end
 
   it 'should require a user' do
@@ -31,47 +34,36 @@ describe Element do
   end
 
   it 'should return root elements' do
-    Element.root_elements.should == [ @element1 ]
+    Element.root_elements.should == [ @parent_element ]
   end
 
   it 'should return leaf elements' do
     pending
-    Element.leafs.should == [ @element2 ]
+    Element.leafs.should == [ @child_element ]
   end
 
   it 'should mark elements as done' do
-    pending
-    @element1.done!
-    @element1.should be_done
-    @element1.done_at.should_not be_nil
-  end
-
-  it 'should return done status' do
-    pending
-    @element1.should_not be_done
-    @element1.done!
-    @element1.should be_done
+    @parent_element.done_at.should be_nil
+    @parent_element.done = true
+    @parent_element.done_at.should_not be_nil
   end
 
   it 'should undo' do
-    pending
-    @element1.done!
-    @element1.should be_done
-    @element1.undo
-    @element1.should_not be_done
-    @element1.done_at.should be_nil
+    @parent_element.done = true
+    @parent_element.done_at.should_not be_nil
+    @parent_element.done = false
+    @parent_element.done_at.should be_nil
   end
 
   it 'should mark child elements as done' do
-    pending
-    @element1.done!
-    @element2.reload.should be_done
-    @element2.done_at.should_not be_nil
+    @child_element.done_at.should be_nil
+    @parent_element.done = true
+    @child_element.done_at.should_not be_nil
   end
 
-  # this test can be removed once satisfied
-  it 'should not respond to done=' do
-    pending
-    @element1.should_not respond_to :done=
+  it 'should not mark parent elements as done' do
+    @parent_element.done_at.should be_nil
+    @child_element.done = true
+    @parent_element.reload.done_at.should be_nil
   end
 end

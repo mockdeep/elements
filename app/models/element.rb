@@ -17,6 +17,10 @@ class Element < ActiveRecord::Base
   def done=(done_var)
     if done_var
       self.done_at = Time.zone.now
+      children.each do |child|
+        child.done = true
+        child.save
+      end
     else
       self.done_at = nil
     end
