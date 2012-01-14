@@ -12,7 +12,12 @@ class Element < ActiveRecord::Base
 
   validates_presence_of :title, :user
 
-  scope :root_elements, :conditions => 'parent_id IS NULL'
+  scope :roots, :conditions => 'parent_id IS NULL'
+  scope :children, :conditions => 'parent_id IS NOT NULL'
+
+  def self.leafs
+    where('id not in (?)', children.collect(&:parent_id))
+  end
 
   def done=(done_var)
     if done_var

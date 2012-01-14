@@ -1,6 +1,11 @@
 class ElementsController < ApplicationController
   def index
-    @elements = current_user.elements.root_elements
+    if params[:tree] == 'leafs'
+      @tree = 'leafs'
+      @elements = current_user.elements.leafs
+    else
+      @elements = current_user.elements.roots
+    end
   end
 
   def new
