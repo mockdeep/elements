@@ -31,24 +31,19 @@ describe User do
 
   describe 'authentication' do
     before :each do
-      @user = User.create({
-        :email => 'b@b.com',
-        :username => 'b',
-        :password => 'b',
-        :password_confirmation => 'b',
-      })
+      @user = Factory(:user)
     end
 
     it 'should return the user given valid credentials' do
-      User.authenticate('b@b.com', 'b').should == @user
+      User.authenticate(@user.email, @user.password).should == @user
     end
 
     it 'should return nil given bad password' do
-      User.authenticate('b@b.com', 'c').should be_nil
+      User.authenticate(@user.email, 'nonsense').should be_nil
     end
 
     it 'should return nil given non-existent email' do
-      User.authenticate('a@b.com', 'b').should be_nil
+      User.authenticate('nonsense', @user.password).should be_nil
     end
   end
 end
