@@ -37,6 +37,8 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'shoulda'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development do
