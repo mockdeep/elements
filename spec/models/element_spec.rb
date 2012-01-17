@@ -2,16 +2,16 @@ require 'spec_helper'
 
 describe Element do
   before :each do
-    user = User.create(
+    @user = User.create(
       :email => 'a@a.com',
       :username => 'bob',
       :password => 'pizza',
       :password_confirmation => 'pizza',
     )
 
-    @parent_element = Element.create(:user => user, :title => 'do laundry')
+    @parent_element = Element.create(:user => @user, :title => 'do laundry')
     @child_element = Element.create(
-      :user => user,
+      :user => @user,
       :title => 'put clothes in washer'
     )
     @parent_element.children << @child_element
@@ -34,12 +34,29 @@ describe Element do
   end
 
   it 'should return root elements' do
-    Element.root_elements.should == [ @parent_element ]
+    Element.roots.should == [ @parent_element ]
   end
 
   it 'should return leaf elements' do
-    pending
     Element.leafs.should == [ @child_element ]
+  end
+
+  it 'should not return elements for another user' do
+    user2 = User.create(
+      :email => 'b@b.com',
+      :username => 'billy',
+      :password => 'burrito',
+      :password_confirmation => 'burrito',
+    )
+
+    element1 = Element.create(:user => user2, :title => 'wash dishes')
+    element2 = Element.create(:user => user2, :title => 'eat cereal')
+    element2.update_attribute(:parent, element1)
+
+    user2.elements.roots.should == [ element1 ]
+    user2.elements.leafs.should == [ element2 ]
+    @user.elements.roots.should == [ @parent_element ]
+    @user.elements.leafs.should == [ @child_element ]
   end
 
   it 'should mark elements as done' do
