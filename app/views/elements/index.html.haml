@@ -1,5 +1,10 @@
 %h1 Your Elements
 
+%h2
+  - if params[:view] == 'leaf'
+    = link_to('Tree View', elements_path)
+  - else
+    = link_to('Leaf View', elements_path(:view => 'leaf'))
 %h2= link_to('Add new Element', new_element_path)
 %ul
   - @elements.each do |element|
