@@ -1,7 +1,6 @@
 class ElementsController < ApplicationController
   def index
-    if params[:tree] == 'leafs'
-      @tree = 'leafs'
+    if params[:view] == 'leaf'
       @elements = current_user.elements.leafs
     else
       @elements = current_user.elements.roots
