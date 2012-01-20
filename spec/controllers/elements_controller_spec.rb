@@ -8,108 +8,191 @@ describe ElementsController do
     session[:user_id] = @user.id
   end
 
-  describe :index do
-    it 'should redirect to login page if not logged in' do
-      pending
-      session[:user_id] = nil
-      get :index
-      should redirect_to login_path
+  describe '#index' do
+    context 'when user is not logged in' do
+      it 'redirects to login page' do
+        pending
+        session[:user_id] = nil
+        get :index
+        should redirect_to login_path
+      end
     end
 
-    it 'should return root elements by default' do
-      get :index
-      assigns(:elements).should == [ @element1 ]
-      assigns(:tree).should be_nil
-    end
+    context 'when user is logged in' do
+      it 'returns root elements by default' do
+        get :index
+        assigns(:elements).should == [ @element1 ]
+      end
 
 
-    it 'should return leaf elements' do
-      get :index, :tree => :leafs
-      assigns(:elements).should == [ @element2 ]
-      assigns(:tree).should == 'leafs'
-    end
-  end
-
-  describe :new do
-    it 'should build an element without a parent' do
-      get :new
-      element = assigns(:element)
-      element.parent.should be_nil
-      element.should be_new_record
-    end
-
-    it 'should build an element with a parent' do
-      get :new, :parent_id => @element1.id
-      assigns(:element).parent.should == @element1
+      it 'returns leaf elements given parameter' do
+        get :index, :view => 'leaf'
+        assigns(:elements).should == [ @element2 ]
+      end
     end
   end
 
-  describe :create do
-    it 'should create an element without a parent' do
-      post :create, :element => { :title => 'do stuff' }
-      element = assigns(:element)
-      @user.elements.should include element
-      element.title.should == 'do stuff'
-      element.should_not be_new_record
-      flash[:notice].should =~ /created successfully/
+  describe '#new' do
+    context 'without a parent_id' do
+      before :each do
+        get :new
+        @element = assigns(:element)
+      end
+
+      it 'initializes an element' do
+        @element.should be_new_record
+      end
+
+      it 'builds an element without a parent' do
+        @element.parent.should be_nil
+      end
     end
 
-    it 'should create an element with a parent' do
-      post :create, :element => {
-        :title => 'do more stuff',
-        :parent_id => @element2
-      }
-      element = assigns(:element)
-      @user.elements.should include element
-      element.title.should == 'do more stuff'
-      element.should_not be_new_record
-      flash[:notice].should =~ /created successfully/
-      @element2.children.should == [ element ]
-    end
-
-    it 'should give an error for invalid attributes' do
-      post :create
-      flash.now[:error].should =~ /problem creating/
+    context 'given a parent_id' do
+      it 'builds an element with a parent' do
+        get :new, :parent_id => @element1.id
+        assigns(:element).parent.should == @element1
+      end
     end
   end
 
-  describe :edit do
-    it 'should find the appropriate element' do
-      get :edit, :id => @element1.id
-      assigns(:element).should == @element1
+  describe '#create' do
+    context 'without a parent_id' do
+      before :each do
+        post :create, :element => { :title => 'do stuff' }
+        @element = assigns(:element)
+      end
+
+      it 'creates the element for the current user' do
+        @user.elements.should include @element
+      end
+
+      it 'assigns the title of the element' do
+        @element.title.should == 'do stuff'
+      end
+
+      it 'saves the element' do
+        @element.should_not be_new_record
+      end
+
+      it 'creates an element without a parent' do
+        @element.parent.should be_nil
+      end
+
+      it 'flashes a success notice' do
+        flash[:notice].should =~ /created successfully/
+      end
+    end
+
+    context 'given a parent id' do
+      before :each do
+        post :create, :element => {
+          :title => 'do more stuff',
+          :parent_id => @element2
+        }
+        @element = assigns(:element)
+      end
+
+      it 'creates an element for the current user' do
+        @user.elements.should include @element
+      end
+
+      it 'assigns the title of the element' do
+        @element.title.should == 'do more stuff'
+      end
+
+      it 'saves the element' do
+        @element.should_not be_new_record
+      end
+
+      it 'flashes a success notice' do
+        flash[:notice].should =~ /created successfully/
+      end
+
+      it 'creates an element with a parent' do
+        @element2.children.should == [ @element ]
+      end
+    end
+
+    context 'given invalid attributes' do
+      it 'gives an error' do
+        post :create
+        flash.now[:error].should =~ /problem creating/
+      end
     end
   end
 
-  describe :update do
-    it 'should update an element' do
-      put :update, :id => @element1.id, :element => { :title => 'blah' }
-      @element1.reload.title.should == 'blah'
-      flash[:notice].should =~ /updated successfully/
-    end
-
-    it 'should render an error for invalid attributes' do
-      title = @element1.title
-      put :update, :id => @element1.id, :element => { :title => nil }
-      @element1.reload.title.should == title
-      flash.now[:error].should =~ /problem updating/
+  describe '#edit' do
+    context 'given a valid element id' do
+      it 'finds the appropriate element' do
+        get :edit, :id => @element1.id
+        assigns(:element).should == @element1
+      end
     end
   end
 
-  describe :destroy do
-    it 'should destroy an element' do
-      delete :destroy, :id => @element1.id
-      Element.find_by_id(@element1.id).should be_nil
-      flash[:notice].should =~ /Element deleted/
+  describe '#update' do
+    context 'given valid attributes' do
+      before :each do
+        put :update, :id => @element1.id, :element => { :title => 'blah' }
+      end
+
+      it 'updates the element' do
+        @element1.reload.title.should == 'blah'
+      end
+
+      it 'flashes a success notice' do
+        flash[:notice].should =~ /updated successfully/
+      end
     end
 
-    it 'should not destroy another users element' do
-      user2 = Factory(:user)
-      session[:user_id] = user2.id
+    context 'given invalid attributes' do
+      before :each do
+        @title = @element1.title
+        put :update, :id => @element1.id, :element => { :title => nil }
+      end
 
-      lambda {
+      it 'does not change the element title' do
+        @element1.reload.title.should == @title
+      end
+
+      it 'flashes an error notice' do
+        flash.now[:error].should =~ /problem updating/
+      end
+    end
+  end
+
+  describe '#destroy' do
+    context 'given a valid element id' do
+      before :each do
         delete :destroy, :id => @element1.id
-      }.should raise_error ActiveRecord::RecordNotFound
-      Element.find_by_id(@element1.id).should_not be_nil
+      end
+
+      it 'destroys the element' do
+        Element.find_by_id(@element1.id).should be_nil
+      end
+
+      it 'flashes a deleted notice' do
+        flash[:notice].should =~ /Element deleted/
+      end
+    end
+
+    context 'given the id of an element from another user' do
+      before :each do
+        user2 = Factory(:user)
+        session[:user_id] = user2.id
+      end
+
+      it 'raises a RecordNotFound exception' do
+        expect {
+          delete :destroy, :id => @element1.id
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+
+      it 'does not destroy the element' do
+        lambda { delete :destroy, :id => @element1.id }
+        Element.find_by_id(@element1.id).should_not be_nil
+      end
     end
   end
 end
