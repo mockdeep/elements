@@ -11,17 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129234414) do
+ActiveRecord::Schema.define(:version => 20120122215719) do
 
   create_table "elements", :id => false, :force => true do |t|
-    t.string   "id",            :limit => 36, :null => false
-    t.string   "user_id",       :limit => 36, :null => false
-    t.string   "parent_id",     :limit => 36
+    t.string   "id",         :limit => 36, :null => false
+    t.string   "user_id",    :limit => 36, :null => false
+    t.string   "parent_id",  :limit => 36
     t.string   "title"
     t.datetime "starts_at"
     t.datetime "due_at"
     t.datetime "done_at"
-    t.integer  "time_required"
     t.integer  "value"
     t.integer  "urgency"
     t.integer  "times_done"
