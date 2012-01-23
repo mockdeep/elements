@@ -11,25 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120122215719) do
+ActiveRecord::Schema.define(:version => 20120123050145) do
 
   create_table "elements", :id => false, :force => true do |t|
-    t.string   "id",         :limit => 36, :null => false
-    t.string   "user_id",    :limit => 36, :null => false
+    t.string   "id",         :limit => 36,                :null => false
+    t.string   "user_id",    :limit => 36,                :null => false
     t.string   "parent_id",  :limit => 36
     t.string   "title"
     t.datetime "starts_at"
     t.datetime "due_at"
     t.datetime "done_at"
-    t.integer  "value"
-    t.integer  "urgency"
+    t.integer  "value",                    :default => 0, :null => false
+    t.integer  "urgency",                  :default => 0, :null => false
     t.integer  "times_done"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rank"
   end
 
   add_index "elements", ["id"], :name => "index_elements_on_id", :unique => true
   add_index "elements", ["parent_id"], :name => "index_elements_on_parent_id"
+  add_index "elements", ["rank"], :name => "index_elements_on_rank"
   add_index "elements", ["user_id"], :name => "index_elements_on_user_id"
 
   create_table "users", :id => false, :force => true do |t|

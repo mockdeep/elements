@@ -12,11 +12,17 @@ class Element < ActiveRecord::Base
 
   validates_presence_of :title, :user
 
-  scope :roots, :conditions => 'parent_id IS NULL'
-  scope :children, :conditions => 'parent_id IS NOT NULL'
+  before_save :update_rank
+
+  scope :roots, where('parent_id IS NULL')
+  scope :children, where('parent_id IS NOT NULL')
 
   def self.leafs
     where('id not in (?)', children.collect(&:parent_id))
+  end
+
+  def self.ranked(direction = :desc)
+    order("rank #{direction}")
   end
 
   def done=(done_var)
@@ -29,5 +35,17 @@ class Element < ActiveRecord::Base
     else
       self.done_at = nil
     end
+  end
+
+  def update_rank
+    self.rank = (Math.sqrt(value**2 + urgency**2) * 100).round
+  end
+
+  def to_s
+    title
+  end
+
+  def inspect
+    title
   end
 end
