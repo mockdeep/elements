@@ -5,3 +5,12 @@
  *= require_self
  *= require_tree . 
 */
+
+body {
+  color: #555;
+  font-family: Helvetica, sans-serif;
+}
+
+#todo {
+  margin: 0;
+}
