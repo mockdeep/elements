@@ -1,9 +1,15 @@
 %li
   = element.title
-  = link_to(' ✍', edit_element_path(element))
-  = link_to(' ✚', new_element_path(:parent_id => element.id))
-  = link_to(' ✔', element_path(element, :done => true), :method => :put)
-  = link_to(' ✘', element_path(element), :method => :delete)
+  = link_to(' ✍', edit_element_path(element), :title => 'Edit element')
+  = link_to(' ✚', new_element_path(:parent_id => element.id),
+      :title => 'Add new child element')
+  = link_to(' ✔', element_path(element, :done => true),
+      :method => :put,
+      :title => 'Mark element done')
+  = link_to(' ✘', element_path(element),
+      :method => :delete,
+      :title => 'Delete element',
+      :confirm => 'Delete this element?')
   - if element.children.any?
     %ul
       - element.children.each do |child|
