@@ -18,16 +18,29 @@ describe ElementsController do
       end
     end
 
-    context 'when user is logged in' do
-      it 'returns root elements by default' do
+    context 'with no parameters' do
+      it 'assigns root elements' do
         get :index
         assigns(:elements).should == [ @element1 ]
       end
+    end
 
-
-      it 'returns leaf elements given parameter' do
+    context "given 'leaf' parameter" do
+      it 'assigns leaf elements' do
         get :index, :view => 'leaf'
         assigns(:elements).should == [ @element2 ]
+      end
+    end
+
+    context "given 'ranked' parameter" do
+      before :each do
+        @element3 = Factory(:element, :user => @user, :value => 9)
+        @element2.update_attribute(:value, 8)
+      end
+
+      it 'assigns ranked leaf elements' do
+        get :index, :view => 'ranked'
+        assigns(:elements).should == [ @element3, @element2 ]
       end
     end
   end
