@@ -48,3 +48,7 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.6"
 end
+
+group :production do
+  gem 'pg'
+end
