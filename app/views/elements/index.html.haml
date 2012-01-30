@@ -1,11 +1,20 @@
 %h1 Your Elements
 
-%h2
+%h3
+  View:
+  = params[:view] ? link_to('Tree', elements_path) : "Tree"
+  |
   - if params[:view] == 'leaf'
-    = link_to('Tree View', elements_path)
+    Leaf
   - else
-    = link_to('Leaf View', elements_path(:view => 'leaf'))
-%h2= link_to('Add new Element', new_element_path)
+    = link_to('Leaf', elements_path(:view => 'leaf'))
+  |
+  - if params[:view] == 'ranked'
+    Ranked
+  - else
+    = link_to('Ranked', elements_path(:view => 'ranked'))
+
+%h3= link_to('Add new Element', new_element_path)
 %ul
   - @elements.each do |element|
     = render :partial => 'tree', :locals => { :element => element }

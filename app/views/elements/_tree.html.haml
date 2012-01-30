@@ -1,5 +1,7 @@
 %li
   = element.title
+  - if params[:view] == 'ranked'
+    (#{element.rank})
   = link_to(' ✍', edit_element_path(element), :title => 'Edit element')
   = link_to(' ✚', new_element_path(:parent_id => element.id),
       :title => 'Add new child element')
