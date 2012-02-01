@@ -1,9 +1,9 @@
 class CreateElements < ActiveRecord::Migration
   def change
     create_table :elements, :id => false do |t|
-      t.column :id, 'char(36) binary', :null => false, :primary => true
-      t.column :user_id, 'char(36) binary', :null => false
-      t.column :parent_id, 'char(36) binary'
+      t.column :id, 'char(36)', :null => false, :primary => true
+      t.column :user_id, 'char(36)', :null => false
+      t.column :parent_id, 'char(36)'
       t.string :title
       t.datetime :starts_at
       t.datetime :due_at

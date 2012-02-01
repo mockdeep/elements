@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users, :id => false do |t|
-      t.column :id, 'char(36) binary', :null => false, :primary => true
+      t.column :id, 'char(36)', :null => false, :primary => true
       t.string :email
       t.string :username
       t.string :password_hash
