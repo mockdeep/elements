@@ -18,7 +18,12 @@ class Element < ActiveRecord::Base
   scope :children, where('parent_id IS NOT NULL')
 
   def self.leafs
-    where('id not in (?)', children.collect(&:parent_id))
+    parent_ids = children.collect(&:parent_id)
+    if parent_ids.empty?
+      all
+    else
+      where('id NOT IN (?)', children.collect(&:parent_id))
+    end
   end
 
   def self.ranked(direction = :desc)
