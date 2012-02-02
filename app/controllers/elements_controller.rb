@@ -3,7 +3,7 @@ class ElementsController < ApplicationController
     if params[:view] == 'leaf'
       @elements = current_user.elements.leafs
     elsif params[:view] == 'ranked'
-      @elements = current_user.elements.leafs.ranked
+      @elements = current_user.elements.ranked.leafs
     else
       @elements = current_user.elements.roots
     end

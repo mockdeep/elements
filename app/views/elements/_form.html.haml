@@ -1,7 +1,6 @@
 = form_for @element do |f|
   - if @element.parent_id
     = f.hidden_field :parent_id
-  %h3 #{@element.value}, #{@element.urgency}
   %table
     %tr
       %td= f.label 'Title:'
