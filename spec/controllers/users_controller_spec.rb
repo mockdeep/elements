@@ -1,20 +1,22 @@
 require 'spec_helper'
 
 describe UsersController do
-  describe :new do
-    it 'should assign a blank user' do
+  describe '#new' do
+    before :each do
       get :new
-      user = assigns(:user)
-      user.should be_instance_of User
-      user.should be_new_record
-      user.email.should be_blank
-      user.username.should be_blank
-      user.password.should be_blank
-      user.password_confirmation.should be_blank
+      @user = assigns(:user)
+    end
+
+    it 'initializes an instance of User' do
+      @user.should be_instance_of User
+    end
+
+    it "doesn't save the user record" do
+      @user.should be_new_record
     end
   end
 
-  describe :create do
+  describe '#create' do
     before :each do
       @valid_params = {
         :username => 'billy',
@@ -24,25 +26,47 @@ describe UsersController do
       }
     end
 
-    it 'should create a new user' do
-      post :create, :user => @valid_params
-      flash[:notice].should == 'Signed up!'
-      user = assigns(:user)
-      user.username.should == 'billy'
+    context 'given valid params' do
+      before :each do
+        post :create, :user => @valid_params
+      end
+
+      it 'flashes a success message' do
+        flash[:notice].should == 'Signed up!'
+      end
+
+      it 'creates a new user' do
+        user = assigns(:user)
+        user.username.should == 'billy'
+      end
     end
 
-    it 'should render error when missing params' do
-      post :create
-      flash.now[:error].should =~ /problem creating your account/
+    context 'without params' do
+      before :each do
+        post :create
+      end
+
+      it 'flashes an error' do
+        flash.now[:error].should =~ /problem creating your account/
+      end
+
+      it 'renders the new template' do
+        response.should render_template('users/new')
+      end
     end
 
-    it 'should render error for invalid params' do
-      post :create, :user => @valid_params.merge(:password => 'c')
-      flash.now[:error].should =~ /problem creating your account/
-      assigns(:user).errors.full_messages.first.should =~ /doesn't match/
-      post :create, :user => @valid_params.merge(:email => 'b')
-      flash.now[:error].should =~ /problem creating your account/
-      assigns(:user).errors.full_messages.first.should =~ /Email is invalid/
+    context 'given an invalid email' do
+      before :each do
+        post :create, :user => @valid_params.merge(:password => 'c')
+      end
+
+      it 'flashes an error' do
+        flash.now[:error].should =~ /problem creating your account/
+      end
+
+      it 'renders the new template' do
+        response.should render_template('users/new')
+      end
     end
   end
 end
