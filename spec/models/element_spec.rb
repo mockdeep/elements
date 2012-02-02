@@ -108,6 +108,12 @@ describe Element do
       element2 = Factory(:element, :user => user2, :parent => element1)
       user2.elements.leafs.should == [ element2 ]
     end
+
+    it 'returns all elements if there are no parents' do
+      user = Factory(:user)
+      element = Factory(:element, :user => user)
+      user.elements.leafs.should == [ element ]
+    end
   end
 
   describe '#done' do
