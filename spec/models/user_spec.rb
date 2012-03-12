@@ -1,6 +1,53 @@
 require 'spec_helper'
 
 describe User do
+  describe '#update_attributes' do
+    before :each do
+      @user = Factory(:user)
+    end
+
+    it 'does not mass assign id' do
+      new_id = UUIDTools::UUID.random_create.to_s
+      @user.update_attributes(:id => new_id)
+      @user.id.should_not == new_id
+    end
+
+    it 'does not mass assign password_salt' do
+      new_salt = BCrypt::Engine.generate_salt
+      @user.update_attributes(:password_salt => new_salt)
+      @user.password_salt.should_not == new_salt
+    end
+
+    it 'does not mass assign password_hash' do
+      @user.update_attributes(:password_hash => 'new_hash')
+      @user.password_salt.should_not == 'new_hash'
+    end
+
+    it 'does not mass assign created_at' do
+      old_time = Time.zone.now - 3.days
+      new_time = Time.zone.now
+      @user.update_attribute(:created_at, old_time)
+      @user.update_attributes(:created_at => new_time)
+      @user.created_at.should == old_time
+    end
+
+    it 'does not mass assign updated_at' do
+      new_time = Time.zone.now
+      @user.update_attributes(:updated_at => new_time)
+      @user.updated_at.should_not == new_time
+    end
+
+    it 'does mass assign username' do
+      @user.update_attributes(:username => 'wah!')
+      @user.username.should == 'wah!'
+    end
+
+    it 'does mass assign email' do
+      @user.update_attributes(:email => 'my@awesome.com')
+      @user.email.should == 'my@awesome.com'
+    end
+  end
+
   describe '#elements' do
     it { should have_many :elements }
   end

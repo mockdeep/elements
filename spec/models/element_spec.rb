@@ -8,6 +8,90 @@ describe Element do
     @parent_element.children << @child_element
   end
 
+  describe '#update_attributes' do
+    it 'does not mass assign id' do
+      new_id = UUIDTools::UUID.random_create.to_s
+      @parent_element.update_attributes(:id => new_id)
+      @parent_element.id.should_not == new_id
+    end
+
+    it 'does not mass assign user_id' do
+      new_id = UUIDTools::UUID.random_create.to_s
+      @parent_element.update_attributes(:user_id => new_id)
+      @parent_element.user_id.should_not == new_id
+    end
+
+    it 'does not mass assign parent_id' do
+      new_id = UUIDTools::UUID.random_create.to_s
+      @parent_element.update_attributes(:parent_id => new_id)
+      @parent_element.parent_id.should_not == new_id
+    end
+
+    it 'does not mass assign times_done' do
+      @parent_element.update_attribute(:times_done, 5)
+      @parent_element.update_attributes(:times_done => 15)
+      @parent_element.times_done.should == 5
+    end
+
+    it 'does not mass assign created_at' do
+      old_time = Time.zone.now - 3.days
+      new_time = Time.zone.now
+      @parent_element.update_attribute(:created_at, old_time)
+      @parent_element.update_attributes(:created_at => new_time)
+      @parent_element.created_at.should == old_time
+    end
+
+    it 'does not mass assign updated_at' do
+      old_time = Time.zone.now - 3.days
+      new_time = Time.zone.now
+      @parent_element.update_attribute(:updated_at, old_time)
+      @parent_element.update_attributes(:updated_at => new_time)
+      @parent_element.updated_at.should == old_time
+    end
+
+    it 'does not mass assign rank' do
+      @parent_element.update_attributes(:rank => 15)
+      @parent_element.rank.should == 0
+    end
+
+    it 'does not mass assign done_at' do
+      old_time = Time.zone.now - 3.days
+      new_time = Time.zone.now
+      @parent_element.update_attribute(:done_at, old_time)
+      @parent_element.update_attributes(:done_at => new_time)
+      @parent_element.done_at.should == old_time
+    end
+
+    it 'does mass assign title' do
+      @parent_element.update_attributes(:title => 'wah!')
+      @parent_element.title.should == 'wah!'
+    end
+
+    it 'does mass assign starts_at' do
+      new_time = Time.zone.parse('2012-05-10')
+      @parent_element.update_attributes(:starts_at => new_time)
+      @parent_element.starts_at.should == new_time
+    end
+
+    it 'does mass assign due_at' do
+      new_time = Time.zone.parse('2012-05-10')
+      @parent_element.update_attributes(:due_at => new_time)
+      @parent_element.due_at.should == new_time
+    end
+
+    it 'does mass assign value' do
+      @parent_element.update_attribute(:value, 5)
+      @parent_element.update_attributes(:value => 9)
+      @parent_element.value.should == 9
+    end
+
+    it 'does mass assign urgency' do
+      @parent_element.update_attribute(:urgency, 5)
+      @parent_element.update_attributes(:urgency => 9)
+      @parent_element.urgency.should == 9
+    end
+  end
+
   describe '.roots' do
     it 'returns the top level elements' do
       Element.roots.should == [ @parent_element ]

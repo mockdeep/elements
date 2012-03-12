@@ -3,6 +3,7 @@ require 'constants'
 
 class User < ActiveRecord::Base
   include UUIDHelper
+
   attr_accessor :password
   attr_accessible :email, :username, :password, :password_confirmation
 

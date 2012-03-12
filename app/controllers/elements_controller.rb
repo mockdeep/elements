@@ -10,11 +10,15 @@ class ElementsController < ApplicationController
   end
 
   def new
-    @element = current_user.elements.build(:parent_id => params[:parent_id])
+    parent = current_user.elements.find_by_id(params[:parent_id])
+    @element = current_user.elements.build
+    @element.parent = parent
   end
 
   def create
+    parent = current_user.elements.find_by_id(params[:parent_id])
     @element = current_user.elements.build(params[:element])
+    @element.parent = parent
     if @element.save
       redirect_to elements_path, :notice => 'Element created successfully'
     else

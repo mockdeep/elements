@@ -99,10 +99,12 @@ describe ElementsController do
 
     context 'given a parent id' do
       before :each do
-        post :create, :element => {
-          :title => 'do more stuff',
-          :parent_id => @element2
-        }
+        post(:create,
+          :parent_id => @element2,
+          :element => {
+            :title => 'do more stuff',
+          }
+        )
         @element = assigns(:element)
       end
 

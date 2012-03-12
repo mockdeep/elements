@@ -3,6 +3,8 @@ require 'uuid_helper'
 class Element < ActiveRecord::Base
   include UUIDHelper
 
+  attr_accessible :title, :starts_at, :due_at, :value, :urgency
+
   belongs_to :user
   belongs_to :parent, :class_name => 'Element'
   has_many   :children,
@@ -10,9 +12,9 @@ class Element < ActiveRecord::Base
     :foreign_key => :parent_id,
     :dependent => :destroy
 
-  validates_presence_of :title, :user
-
   before_save :update_rank
+
+  validates_presence_of :title, :user
 
   scope :roots, where('parent_id IS NULL')
   scope :children, where('parent_id IS NOT NULL')
