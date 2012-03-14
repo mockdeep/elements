@@ -2,7 +2,7 @@ module UUIDHelper
 
   def self.included(base)
     base.class_eval do
-      set_primary_key :id
+      self.primary_key = 'id'
       attr_readonly :id
       before_create :set_uuid
 
