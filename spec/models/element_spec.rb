@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Element do
   before :each do
-    @user = Factory(:user)
-    @parent_element = Factory(:element, :user => @user)
-    @child_element = Factory(:element, :user => @user)
+    @user = FactoryGirl.create(:user)
+    @parent_element = FactoryGirl.create(:element, :user => @user)
+    @child_element = FactoryGirl.create(:element, :user => @user)
     @parent_element.children << @child_element
   end
 
@@ -178,24 +178,26 @@ describe Element do
 
   describe '#roots' do
     it 'returns elements only for that user' do
-      user2 = Factory(:user)
-      element1 = Factory(:element, :user => user2)
-      element2 = Factory(:element, :user => user2, :parent => element1)
+      user2 = FactoryGirl.create(:user)
+      element1 = FactoryGirl.create(:element, :user => user2)
+      options = { :user => user2, :parent => element1 }
+      element2 = FactoryGirl.create(:element, options)
       user2.elements.roots.should == [ element1 ]
     end
   end
 
   describe '#leafs' do
     it 'returns elements only for that user' do
-      user2 = Factory(:user)
-      element1 = Factory(:element, :user => user2)
-      element2 = Factory(:element, :user => user2, :parent => element1)
+      user2 = FactoryGirl.create(:user)
+      element1 = FactoryGirl.create(:element, :user => user2)
+      options = { :user => user2, :parent => element1 }
+      element2 = FactoryGirl.create(:element, options)
       user2.elements.leafs.should == [ element2 ]
     end
 
     it 'returns all elements if there are no parents' do
-      user = Factory(:user)
-      element = Factory(:element, :user => user)
+      user = FactoryGirl.create(:user)
+      element = FactoryGirl.create(:element, :user => user)
       user.elements.leafs.should == [ element ]
     end
   end

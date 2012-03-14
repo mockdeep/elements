@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe ElementsController do
   before :each do
-    @element1 = Factory(:element)
+    @element1 = FactoryGirl.create(:element)
     @user = @element1.user
-    @element2 = Factory(:element, :parent => @element1, :user => @user)
+    options = { :parent => @element1, :user => @user }
+    @element2 = FactoryGirl.create(:element, options)
     session[:user_id] = @user.id
   end
 
@@ -34,7 +35,7 @@ describe ElementsController do
 
     context "given 'ranked' parameter" do
       before :each do
-        @element3 = Factory(:element, :user => @user, :value => 9)
+        @element3 = FactoryGirl.create(:element, :user => @user, :value => 9)
         @element2.update_attribute(:value, 8)
       end
 
@@ -194,7 +195,7 @@ describe ElementsController do
 
     context 'given the id of an element from another user' do
       before :each do
-        user2 = Factory(:user)
+        user2 = FactoryGirl.create(:user)
         session[:user_id] = user2.id
       end
 

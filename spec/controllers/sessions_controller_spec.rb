@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SessionsController do
   before :each do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   describe '#create' do

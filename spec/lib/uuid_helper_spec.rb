@@ -4,7 +4,7 @@ describe UUIDHelper do
   describe '.included' do
     context 'when loaded into class' do
       before :each do
-        @element = Factory(:element)
+        @element = FactoryGirl.create(:element)
       end
 
       it "doesn't allow writing to the id" do

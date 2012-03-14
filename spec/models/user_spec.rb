@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   describe '#update_attributes' do
     before :each do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     it 'does not mass assign id' do
@@ -90,7 +90,7 @@ describe User do
 
   describe '#authenticate' do
     before :each do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     context 'given valid credentials' do

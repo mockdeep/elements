@@ -4,7 +4,7 @@ describe ApplicationController do
   describe '#current_user' do
     context 'when there is a user signed in' do
       before :each do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         session[:user_id] = @user.id
       end
 
