@@ -13,21 +13,21 @@ describe ElementsController do
       it 'redirects to login page' do
         pending
         session[:user_id] = nil
-        get :index
+        get(:index)
         should redirect_to login_path
       end
     end
 
     context 'with no parameters' do
       it 'assigns root elements' do
-        get :index
+        get(:index)
         assigns(:elements).should == [ @element1 ]
       end
     end
 
     context "given 'leaf' parameter" do
       it 'assigns leaf elements' do
-        get :index, :view => 'leaf'
+        get(:index, :view => 'leaf')
         assigns(:elements).should == [ @element2 ]
       end
     end
@@ -39,7 +39,7 @@ describe ElementsController do
       end
 
       it 'assigns ranked leaf elements' do
-        get :index, :view => 'ranked'
+        get(:index, :view => 'ranked')
         assigns(:elements).should == [ @element3, @element2 ]
       end
     end
@@ -48,7 +48,7 @@ describe ElementsController do
   describe '#new' do
     context 'without a parent_id' do
       before :each do
-        get :new
+        get(:new)
         @element = assigns(:element)
       end
 
@@ -63,7 +63,7 @@ describe ElementsController do
 
     context 'given a parent_id' do
       it 'builds an element with a parent' do
-        get :new, :parent_id => @element1.id
+        get(:new, :parent_id => @element1.id)
         assigns(:element).parent.should == @element1
       end
     end
@@ -72,7 +72,7 @@ describe ElementsController do
   describe '#create' do
     context 'without a parent_id' do
       before :each do
-        post :create, :element => { :title => 'do stuff' }
+        post(:create, :element => { :title => 'do stuff' })
         @element = assigns(:element)
       end
 
@@ -131,7 +131,7 @@ describe ElementsController do
 
     context 'given invalid attributes' do
       it 'gives an error' do
-        post :create
+        post(:create)
         flash.now[:error].should =~ /problem creating/
       end
     end
@@ -140,7 +140,7 @@ describe ElementsController do
   describe '#edit' do
     context 'given a valid element id' do
       it 'finds the appropriate element' do
-        get :edit, :id => @element1.id
+        get(:edit, :id => @element1.id)
         assigns(:element).should == @element1
       end
     end
@@ -149,7 +149,7 @@ describe ElementsController do
   describe '#update' do
     context 'given valid attributes' do
       before :each do
-        put :update, :id => @element1.id, :element => { :title => 'blah' }
+        put(:update, :id => @element1.id, :element => { :title => 'blah' })
       end
 
       it 'updates the element' do
@@ -164,7 +164,7 @@ describe ElementsController do
     context 'given invalid attributes' do
       before :each do
         @title = @element1.title
-        put :update, :id => @element1.id, :element => { :title => nil }
+        put(:update, :id => @element1.id, :element => { :title => nil })
       end
 
       it 'does not change the element title' do
@@ -180,7 +180,7 @@ describe ElementsController do
   describe '#destroy' do
     context 'given a valid element id' do
       before :each do
-        delete :destroy, :id => @element1.id
+        delete(:destroy, :id => @element1.id)
       end
 
       it 'destroys the element' do
@@ -200,12 +200,12 @@ describe ElementsController do
 
       it 'raises a RecordNotFound exception' do
         expect {
-          delete :destroy, :id => @element1.id
+          delete(:destroy, :id => @element1.id)
         }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it 'does not destroy the element' do
-        lambda { delete :destroy, :id => @element1.id }
+        lambda { delete(:destroy, :id => @element1.id) }
         Element.find_by_id(@element1.id).should_not be_nil
       end
     end

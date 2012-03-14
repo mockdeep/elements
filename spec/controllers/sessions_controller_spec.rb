@@ -8,7 +8,7 @@ describe SessionsController do
   describe '#create' do
     context 'given valid credentials' do
       before :each do
-        post :create, :email => @user.email, :password => @user.password
+        post(:create, :email => @user.email, :password => @user.password)
       end
 
       it 'sets the session user_id' do
@@ -26,7 +26,7 @@ describe SessionsController do
 
     context 'given invalid credentials' do
       before :each do
-        post :create, :email => @user.email, :password => 'wrongpassword'
+        post(:create, :email => @user.email, :password => 'wrongpassword')
       end
 
       it 'sets the session user_id to nil' do
@@ -46,7 +46,7 @@ describe SessionsController do
   describe '#destroy' do
     before :each do
       session[:user_id] = @user.id
-      delete :destroy
+      delete(:destroy)
     end
 
     it 'sets the session user_id to nil' do
