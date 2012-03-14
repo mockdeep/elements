@@ -17,19 +17,25 @@ describe Element do
 
     it 'does not mass assign user_id' do
       new_id = UUIDTools::UUID.random_create.to_s
-      @parent_element.update_attributes(:user_id => new_id)
+      expect {
+        @parent_element.update_attributes(:user_id => new_id)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.user_id.should_not == new_id
     end
 
     it 'does not mass assign parent_id' do
       new_id = UUIDTools::UUID.random_create.to_s
-      @parent_element.update_attributes(:parent_id => new_id)
+      expect {
+        @parent_element.update_attributes(:parent_id => new_id)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.parent_id.should_not == new_id
     end
 
     it 'does not mass assign times_done' do
       @parent_element.update_attribute(:times_done, 5)
-      @parent_element.update_attributes(:times_done => 15)
+      expect {
+        @parent_element.update_attributes(:times_done => 15)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.times_done.should == 5
     end
 
@@ -37,7 +43,9 @@ describe Element do
       old_time = Time.zone.now - 3.days
       new_time = Time.zone.now
       @parent_element.update_attribute(:created_at, old_time)
-      @parent_element.update_attributes(:created_at => new_time)
+      expect {
+        @parent_element.update_attributes(:created_at => new_time)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.created_at.should == old_time
     end
 
@@ -45,12 +53,16 @@ describe Element do
       old_time = Time.zone.now - 3.days
       new_time = Time.zone.now
       @parent_element.update_attribute(:updated_at, old_time)
-      @parent_element.update_attributes(:updated_at => new_time)
+      expect {
+        @parent_element.update_attributes(:updated_at => new_time)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.updated_at.should == old_time
     end
 
     it 'does not mass assign rank' do
-      @parent_element.update_attributes(:rank => 15)
+      expect {
+        @parent_element.update_attributes(:rank => 15)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.rank.should == 0
     end
 
@@ -58,7 +70,9 @@ describe Element do
       old_time = Time.zone.now - 3.days
       new_time = Time.zone.now
       @parent_element.update_attribute(:done_at, old_time)
-      @parent_element.update_attributes(:done_at => new_time)
+      expect {
+        @parent_element.update_attributes(:done_at => new_time)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
       @parent_element.done_at.should == old_time
     end
 
