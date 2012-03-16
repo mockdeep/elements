@@ -1,4 +1,4 @@
-Todo::Application.routes.draw do
+Elements::Application.routes.draw do
   get "elements/index"
 
   get 'login' => 'sessions#new', :as => 'login'

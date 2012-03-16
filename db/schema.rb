@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(:version => 20120123050145) do
     t.integer  "value",                    :default => 0, :null => false
     t.integer  "urgency",                  :default => 0, :null => false
     t.integer  "times_done"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.integer  "rank"
   end
 
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(:version => 20120123050145) do
     t.string   "username"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

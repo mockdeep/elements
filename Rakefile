@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Todo::Application.load_tasks
+Elements::Application.load_tasks

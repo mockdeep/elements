@@ -10,7 +10,7 @@ Install rvm
 
 Fork the project
 ----------------
-* Go to https://github.com/mockdeep/todo
+* Go to https://github.com/mockdeep/elements
 * Click the 'Fork' button
 
 Clone the project
@@ -18,8 +18,8 @@ Clone the project
 * Copy the git url
 * At the command line:
   * `git clone [git url]`
-  * `cd todo`
-  * `git remote add rob https://github.com/mockdeep/todo`
+  * `cd elements`
+  * `git remote add rob https://github.com/mockdeep/elements`
 
 Install required packages
 -------------------------
@@ -39,7 +39,7 @@ Starting a new feature
 * Push to your remote branch
   * `git push origin my_cool_new_feature`
 * Make a pull request
-  * On github, go to your todo fork
+  * On github, go to your elements fork
   * Click on `Pull request`
   * In the right box type your branch name and click next
   * Review and click submit
