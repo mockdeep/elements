@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123050145) do
+ActiveRecord::Schema.define(:version => 20120318222527) do
 
   create_table "elements", :id => false, :force => true do |t|
     t.string   "id",         :limit => 36,                :null => false
@@ -35,13 +35,12 @@ ActiveRecord::Schema.define(:version => 20120123050145) do
   add_index "elements", ["user_id"], :name => "index_elements_on_user_id"
 
   create_table "users", :id => false, :force => true do |t|
-    t.string   "id",            :limit => 36, :null => false
+    t.string   "id",              :limit => 36, :null => false
     t.string   "email"
     t.string   "username"
-    t.string   "password_hash"
-    t.string   "password_salt"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "password_digest"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
