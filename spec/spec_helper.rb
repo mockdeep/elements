@@ -1,11 +1,11 @@
+require 'rubygems'
+require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
-  require 'rubygems'
-  require 'spork'
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'shoulda/matchers/integrations/rspec'

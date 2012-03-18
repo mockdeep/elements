@@ -19,8 +19,8 @@ describe SessionsController do
         flash[:notice].should == 'Logged in!'
       end
 
-      it 'redirects to elements#index' do
-        response.should redirect_to(elements_index_path)
+      it 'redirects to root_path' do
+        response.should redirect_to(root_path)
       end
     end
 

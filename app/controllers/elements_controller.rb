@@ -1,4 +1,6 @@
 class ElementsController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     if params[:view] == 'leaf'
       @elements = current_user.elements.leafs
