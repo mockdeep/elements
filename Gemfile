@@ -36,17 +36,17 @@ group :test do
   gem 'turn', :require => false
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'spork'
   gem 'guard-rspec'
   gem 'guard-spork'
 end
 
 group :development do
-  gem "mongrel", '1.2.0.pre2'
+  gem 'mongrel', '1.2.0.pre2'
 end
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.6"
+  gem 'rspec-rails', '~> 2.6'
   gem 'jasmine'
+  gem 'faker'
 end
