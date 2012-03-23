@@ -47,7 +47,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.6'
+  gem 'rspec-rails'
   gem 'jasmine'
   gem 'faker'
 end

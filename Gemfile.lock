@@ -189,7 +189,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.2)
   raphael-rails
-  rspec-rails (~> 2.6)
+  rspec-rails
   sass-rails (~> 3.2.3)
   shoulda
   simplecov
