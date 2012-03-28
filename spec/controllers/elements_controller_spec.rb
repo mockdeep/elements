@@ -12,10 +12,9 @@ describe ElementsController do
   describe '#index' do
     context 'when user is not logged in' do
       it 'redirects to login page' do
-        pending
         session[:user_id] = nil
         get(:index)
-        should redirect_to login_path
+        should redirect_to(login_path)
       end
     end
 
