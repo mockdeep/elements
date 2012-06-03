@@ -2,6 +2,7 @@
 db/*.sqlite3
 log/*.log
 tmp/
+doc/
 .sass-cache/
 *.swp
 *.swo
