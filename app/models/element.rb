@@ -29,6 +29,7 @@ class Element < ActiveRecord::Base
   end
 
   def self.ranked(direction = :desc)
+    direction = :asc unless direction.to_sym == :desc
     order("rank #{direction}")
   end
 
