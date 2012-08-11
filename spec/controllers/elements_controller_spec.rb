@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe ElementsController do
+  render_views
+
   before :each do
     @element1 = FactoryGirl.create(:element)
     @user = @element1.user

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe SessionsController do
+  render_views
+
   before :each do
     @user = FactoryGirl.create(:user)
   end
