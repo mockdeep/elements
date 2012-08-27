@@ -16,16 +16,11 @@ class Element < ActiveRecord::Base
 
   validates_presence_of :title, :user
 
-  scope :roots, where('parent_id IS NULL')
+  scope :roots, where(:parent_id => nil)
   scope :children, where('parent_id IS NOT NULL')
 
   def self.leafs
-    parent_ids = children.collect(&:parent_id)
-    if parent_ids.empty?
-      all
-    else
-      where('id NOT IN (?)', children.collect(&:parent_id))
-    end
+    where("id NOT IN ( SELECT parent_id FROM elements WHERE parent_id IS NOT NULL )")
   end
 
   def self.ranked(direction = :desc)
