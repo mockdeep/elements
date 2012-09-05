@@ -50,4 +50,5 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'jasmine'
   gem 'faker'
+  gem 'rails_best_practices'
 end
