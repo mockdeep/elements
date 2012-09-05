@@ -1,20 +1,20 @@
-= form_for @element do |f|
-  - if @element.parent_id
-    = hidden_field_tag :parent_id, @element.parent_id
+= form_for element do |f|
+  - if element.parent_id
+    = hidden_field_tag :parent_id, element.parent_id
   %table
     %tr
       %td= f.label 'Title:'
       %td
         = f.text_field :title
-        = error_message_on(@element, :title)
+        = error_message_on(element, :title)
     %tr
       %td= f.label 'Value:'
       %td
-        = f.select :value, options_for_select(0..9, @element.value)
-        = error_message_on(@element, :value)
+        = f.select :value, options_for_select(0..9, element.value)
+        = error_message_on(element, :value)
     %tr
       %td= f.label 'Urgency:'
       %td
-        = f.select :urgency, options_for_select(0..9, @element.urgency)
-        = error_message_on(@element, :urgency)
+        = f.select :urgency, options_for_select(0..9, element.urgency)
+        = error_message_on(element, :urgency)
   = f.submit
