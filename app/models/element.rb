@@ -20,7 +20,11 @@ class Element < ActiveRecord::Base
   scope :children, where('parent_id IS NOT NULL')
 
   def self.leafs
-    where("id NOT IN ( SELECT parent_id FROM elements WHERE parent_id IS NOT NULL )")
+    where(<<-SQL)
+      id NOT IN (
+        SELECT parent_id FROM elements
+        WHERE parent_id IS NOT NULL )
+    SQL
   end
 
   def self.ranked(direction = :desc)
@@ -48,7 +52,4 @@ class Element < ActiveRecord::Base
     title
   end
 
-  def inspect
-    title
-  end
 end

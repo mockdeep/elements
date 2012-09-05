@@ -151,12 +151,6 @@ describe Element do
     end
   end
 
-  describe '#inspect' do
-    it 'returns the title of the task' do
-      @parent_element.inspect.should == @parent_element.title
-    end
-  end
-
   describe '#destroy' do
     context 'given an element with children' do
       it 'destroys child elements' do
