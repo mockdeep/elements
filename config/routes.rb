@@ -6,7 +6,7 @@ Elements::Application.routes.draw do
   get 'sign_up' => 'users#new', :as => 'sign_up'
   root :to => 'elements#index'
 
-  resources :users, :except => [ :destroy ]
-  resources :sessions, :except => [ :edit, :update, :show ]
+  resources :users, :only => [ :new, :create ]
+  resources :sessions, :only => [ :new, :create, :destroy ]
   resources :elements, :except => [ :show ]
 end
