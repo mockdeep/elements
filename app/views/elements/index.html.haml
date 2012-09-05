@@ -17,4 +17,4 @@
 %h3= link_to('Add new Element', new_element_path)
 %ul
   - @elements.each do |element|
-    = render :partial => 'tree', :locals => { :element => element }
+    = render 'tree', :element => element
