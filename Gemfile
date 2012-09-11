@@ -7,6 +7,7 @@ gem 'uuidtools'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'dynamic_form'
 gem 'pg'
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -43,7 +44,7 @@ group :test do
 end
 
 group :development do
-  gem 'mongrel', '1.2.0.pre2'
+  gem 'quiet_assets'
 end
 
 group :test, :development do
