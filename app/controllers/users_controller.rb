@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      self.current_user = @user
       redirect_to root_path, :notice => "Signed up!"
     else
       flash.now[:error] = 'There was a problem creating your account'

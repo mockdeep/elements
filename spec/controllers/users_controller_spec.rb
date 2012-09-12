@@ -41,6 +41,10 @@ describe UsersController do
         user = assigns(:user)
         user.username.should == 'billy'
       end
+
+      it "logs the user in" do
+        controller.send(:current_user).should == assigns(:user)
+      end
     end
 
     context 'without params' do
