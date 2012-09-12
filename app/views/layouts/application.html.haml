@@ -7,7 +7,7 @@
     = javascript_include_tag :application
     = csrf_meta_tag
 
-%h1#elements ELEMENTS
+%h1#elements= link_to('ELEMENTS', root_path)
 
 #user_nav
   - if current_user
