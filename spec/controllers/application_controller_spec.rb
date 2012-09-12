@@ -31,4 +31,21 @@ describe ApplicationController do
       end
     end
   end
+
+  describe '#current_user=' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+    end
+
+    it "clears the session" do
+      session[:blah] = 'something'
+      controller.send(:current_user=, @user)
+      session[:blah].should be_nil
+    end
+
+    it "sets the current user" do
+      controller.send(:current_user=, @user)
+      session[:user_id].should == @user.id
+    end
+  end
 end
