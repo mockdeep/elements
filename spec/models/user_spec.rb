@@ -48,6 +48,30 @@ describe User do
     end
   end
 
+  describe '.authenticate' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+    end
+
+    context "when given valid credentials" do
+      it "returns an instance of user" do
+        User.authenticate(@user.email, @user.password).should == @user
+      end
+    end
+
+    context "when given invalid password" do
+      it "returns false" do
+        User.authenticate(@user.email, "bad password").should be_false
+      end
+    end
+
+    context "when given invalid email" do
+      it "returns false" do
+        User.authenticate("bad email", @user.password).should be_false
+      end
+    end
+  end
+
   describe '#elements' do
     it { should have_many :elements }
   end

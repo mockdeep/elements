@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_uniqueness_of :email
   validates_format_of :email, :with => Constants::EMAIL_REGEX
+
+  def self.authenticate(email, password)
+    User.find_by_email(email).try(:authenticate, password)
+  end
 end
