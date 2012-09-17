@@ -18,7 +18,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'raphael-rails'
 
 group :test do
   gem 'turn', :require => false
