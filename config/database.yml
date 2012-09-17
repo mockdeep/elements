@@ -1,6 +1,5 @@
 postgres: &postgres
   adapter: postgresql
-  host: localhost
   min_messages: WARNING
 
 development:
