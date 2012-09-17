@@ -1,29 +1,16 @@
-development:
+postgres: &postgres
   adapter: postgresql
-  database: elements_db
   host: localhost
-  username:
-  password:
-  reconnect: true
   min_messages: WARNING
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
+development:
+  <<: *postgres
+  database: elements_db
+
 test:
-  adapter: postgresql
+  <<: *postgres
   database: elements_db_test
-  host: localhost
-  username:
-  password:
-  reconnect: true
-  min_messages: WARNING
 
 production:
-  adapter: postgresql
+  <<: *postgres
   database: elements_db
-  host: localhost
-  username:
-  password:
-  reconnect: true
-  min_messages: WARNING
