@@ -3,7 +3,7 @@ require 'uuid_helper'
 class Element < ActiveRecord::Base
   include UUIDHelper
 
-  attr_accessible :title, :starts_at, :due_at, :value, :urgency
+  attr_accessible :title, :starts_at, :due_at, :value, :urgency, :children
 
   belongs_to :user
   belongs_to :parent, :class_name => 'Element'

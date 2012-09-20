@@ -11,6 +11,7 @@ gem 'dynamic_form'
 gem 'pg'
 gem 'thin'
 gem 'jit-rails'
+gem 'rabl'
 
 group :assets do
   gem 'sass-rails'

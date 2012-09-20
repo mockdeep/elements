@@ -18,3 +18,20 @@ body {
     color: #555;
   }
 }
+
+#container {
+  float: right;
+}
+
+#infovis {
+  height: 600px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 600px;
+  float: right;
+}
+
+#log {
+  text-align: center;
+}
