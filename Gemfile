@@ -10,6 +10,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'dynamic_form'
 gem 'pg'
 gem 'thin'
+gem 'jit-rails'
 
 group :assets do
   gem 'sass-rails'
