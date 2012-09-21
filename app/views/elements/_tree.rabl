@@ -1,5 +1,5 @@
 attributes :id
-attributes :title => :name
+attributes :title => :name, :rank => :size
 
 node :children do |element|
   element.children.map do |child_element|
