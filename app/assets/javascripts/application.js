@@ -7,5 +7,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require jit
-//= require arbor
 //= require_tree .
