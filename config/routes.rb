@@ -7,6 +7,6 @@ Elements::Application.routes.draw do
   root :to => 'elements#index'
 
   resources :users, :only => [ :new, :create ]
-  resources :sessions, :only => [ :new, :create, :destroy ]
+  resources :sessions, :only => [ :create ]
   resources :elements, :except => [ :show ]
 end
