@@ -24,7 +24,6 @@ gem 'jquery-rails'
 
 group :test do
   gem 'turn', :require => false
-  gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'spork'
   gem 'guard-rspec'
@@ -43,4 +42,5 @@ group :test, :development do
   gem 'jasmine'
   gem 'faker'
   gem 'rails_best_practices'
+  gem 'shoulda-matchers'
 end
