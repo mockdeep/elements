@@ -12,31 +12,6 @@ describe User do
       @user.id.should_not == new_id
     end
 
-    it 'does not mass assign password_digest' do
-      expect {
-        @user.update_attributes(:password_digest => 'new_digest')
-      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
-      @user.password_digest.should_not == 'new_digest'
-    end
-
-    it 'does not mass assign created_at' do
-      old_time = Time.zone.now - 3.days
-      new_time = Time.zone.now
-      @user.update_attribute(:created_at, old_time)
-      expect {
-        @user.update_attributes(:created_at => new_time)
-      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
-      @user.created_at.should == old_time
-    end
-
-    it 'does not mass assign updated_at' do
-      new_time = Time.zone.now
-      expect {
-        @user.update_attributes(:updated_at => new_time)
-      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
-      @user.updated_at.should_not == new_time
-    end
-
     it 'does mass assign username' do
       @user.update_attributes(:username => 'wah!')
       @user.username.should == 'wah!'
