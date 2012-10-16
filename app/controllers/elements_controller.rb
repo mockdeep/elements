@@ -20,7 +20,7 @@ class ElementsController < ApplicationController
 
   def create
     parent = current_user.elements.find_by_id(params[:parent_id])
-    @element = current_user.elements.build(params[:element])
+    @element = current_user.elements.build(element_params)
     @element.parent = parent
     if @element.save
       redirect_to elements_path, :notice => 'Element created successfully'
@@ -36,7 +36,7 @@ class ElementsController < ApplicationController
 
   def update
     @element = current_user.elements.find(params[:id])
-    if @element.update_attributes(params[:element])
+    if @element.update_attributes(element_params)
       redirect_to elements_path, :notice => 'Element updated successfully'
     else
       flash.now[:error] = 'There was a problem updating your Element'
@@ -48,5 +48,11 @@ class ElementsController < ApplicationController
     element = current_user.elements.find(params[:id])
     element.destroy
     redirect_to elements_path, :notice => 'Element deleted'
+  end
+
+  private
+
+  def element_params
+    params[:element].try(:permit, :title, :value, :urgency)
   end
 end

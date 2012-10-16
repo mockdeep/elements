@@ -13,6 +13,7 @@ gem 'thin'
 gem 'jit-rails'
 gem 'd3_rails'
 gem 'rabl'
+gem 'strong_parameters'
 
 group :assets do
   gem 'sass-rails'

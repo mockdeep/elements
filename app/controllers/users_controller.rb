@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
       Notifier.signup_email(@user).deliver
       self.current_user = @user
@@ -13,5 +13,11 @@ class UsersController < ApplicationController
       flash.now[:error] = 'There was a problem creating your account'
       render "new"
     end
+  end
+
+  private
+
+  def user_params
+    params[:user].try(:permit, :username, :email, :password, :password_confirmation)
   end
 end
