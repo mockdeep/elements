@@ -5,7 +5,7 @@
   = link_to(' ✍', edit_element_path(element), :title => 'Edit element')
   = link_to(' ✚', new_element_path(:parent_id => element.id),
       :title => 'Add new child element')
-  = link_to(' ✔', element_path(element, :done => true),
+  = link_to(' ✔', element_path(element, :element => { :done => true }),
       :method => :put,
       :title => 'Mark element done')
   = link_to(' ✘', element_path(element),
