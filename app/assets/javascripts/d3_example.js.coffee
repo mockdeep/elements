@@ -1,4 +1,4 @@
-$(document).ready(function() {
+`$(document).ready(function() {
   var width = 960,
       height = 500,
       node,
@@ -111,5 +111,5 @@ $(document).ready(function() {
     root.size = recurse(root);
     return nodes;
   }
-});
+});`
 
