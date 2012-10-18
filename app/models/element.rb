@@ -17,6 +17,8 @@ class Element < ActiveRecord::Base
   scope :roots, where(:parent_id => nil)
   scope :children, where('parent_id IS NOT NULL')
 
+  default_scope :conditions => { :done_at => nil }
+
   def self.leafs
     where(<<-SQL)
       id NOT IN (

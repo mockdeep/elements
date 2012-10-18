@@ -8,6 +8,11 @@ describe Element do
     @parent_element.children << @child_element
   end
 
+  it "has a default scope of unfinished" do
+    @child_element.update_attributes(:done => true)
+    Element.all.should eq [ @parent_element ]
+  end
+
   describe '#update_attributes' do
     it 'does not mass assign id' do
       new_id = UUIDTools::UUID.random_create.to_s
