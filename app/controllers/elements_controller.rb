@@ -53,6 +53,6 @@ class ElementsController < ApplicationController
   private
 
   def element_params
-    params[:element].try(:permit, :title, :value, :urgency, :done)
+    params.require(:element).permit(:title, :value, :urgency, :done)
   end
 end

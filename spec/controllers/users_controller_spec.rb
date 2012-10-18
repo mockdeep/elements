@@ -47,20 +47,6 @@ describe UsersController do
       end
     end
 
-    context 'without params' do
-      before :each do
-        post(:create)
-      end
-
-      it 'flashes an error' do
-        flash.now[:error].should =~ /problem creating your account/
-      end
-
-      it 'renders the new template' do
-        response.should render_template('users/new')
-      end
-    end
-
     context 'given an invalid email' do
       before :each do
         post(:create, :user => @valid_params.merge(:password => 'c'))

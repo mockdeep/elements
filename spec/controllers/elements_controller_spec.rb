@@ -133,7 +133,7 @@ describe ElementsController do
 
     context 'given invalid attributes' do
       it 'gives an error' do
-        post(:create)
+        post(:create, :element => { :title => '' })
         flash.now[:error].should =~ /problem creating/
       end
     end
