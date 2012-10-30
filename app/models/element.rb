@@ -33,6 +33,7 @@ class Element < ActiveRecord::Base
   end
 
   def done=(done_var)
+    # TODO: bad queries!
     if done_var
       self.done_at = Time.zone.now
       children.each do |child|
