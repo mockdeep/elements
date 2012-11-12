@@ -14,7 +14,6 @@ gem 'jit-rails'
 gem 'd3_rails'
 gem 'rabl'
 gem 'strong_parameters'
-gem 'twitter-bootstrap-rails'
 
 group :assets do
   gem 'sass-rails'
