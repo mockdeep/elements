@@ -31,7 +31,6 @@ group :test do
   gem 'guard-spork'
   gem 'rb-inotify'
   gem 'simplecov'
-  gem 'fuubar'
 end
 
 group :development do
