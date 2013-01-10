@@ -31,6 +31,7 @@ group :test do
   gem 'guard-spork'
   gem 'rb-inotify'
   gem 'simplecov'
+  gem 'fakeweb'
 end
 
 group :development do
