@@ -27,13 +27,6 @@ describe ElementsController do
       end
     end
 
-    context "given 'leaf' parameter" do
-      it 'assigns leaf elements' do
-        get(:index, :view => 'leaf')
-        assigns(:elements).should == [ @element2 ]
-      end
-    end
-
     context "given 'ranked' parameter" do
       before :each do
         @element3 = FactoryGirl.create(:element, :user => @user, :value => 9)

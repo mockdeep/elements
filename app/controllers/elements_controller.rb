@@ -3,9 +3,7 @@ class ElementsController < ApplicationController
   respond_to :html, :json
 
   def index
-    if params[:view] == 'leaf'
-      @elements = current_user.elements.leafs
-    elsif params[:view] == 'ranked'
+    if params[:view] == 'ranked'
       @elements = current_user.elements.ranked.leafs
     else
       @elements = current_user.elements.roots

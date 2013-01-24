@@ -10,11 +10,6 @@
   View:
   = params[:view] ? link_to('Tree', elements_path) : "Tree"
   |
-  - if params[:view] == 'leaf'
-    Leaf
-  - else
-    = link_to('Leaf', elements_path(:view => 'leaf'))
-  |
   - if params[:view] == 'ranked'
     Ranked
   - else
