@@ -5,6 +5,7 @@ ruby '1.9.3'
 gem 'rails'
 
 gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'bootstrap-sass'
 gem 'd3_rails'
 gem 'dynamic_form'
 gem 'haml-rails'
