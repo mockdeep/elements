@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 describe ApplicationController do
+  let(:user) { create(:user) }
+
   describe '#current_user' do
     context 'when there is a user signed in' do
       before :each do
-        @user = FactoryGirl.create(:user)
-        session[:user_id] = @user.id
+        session[:user_id] = user.id
       end
 
       it 'returns the user currently signed in' do
-        controller.send(:current_user).should == @user
+        controller.send(:current_user).should == user
       end
     end
 
@@ -33,19 +34,15 @@ describe ApplicationController do
   end
 
   describe '#current_user=' do
-    before :each do
-      @user = FactoryGirl.create(:user)
-    end
-
     it "clears the session" do
       session[:blah] = 'something'
-      controller.send(:current_user=, @user)
+      controller.send(:current_user=, user)
       session[:blah].should be_nil
     end
 
     it "sets the current user" do
-      controller.send(:current_user=, @user)
-      session[:user_id].should == @user.id
+      controller.send(:current_user=, user)
+      session[:user_id].should == user.id
     end
   end
 end

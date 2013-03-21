@@ -2,19 +2,16 @@ require 'spec_helper'
 
 describe SessionsController do
   render_views
-
-  before :each do
-    @user = FactoryGirl.create(:user)
-  end
+  let(:user) { create(:user) }
 
   describe '#create' do
     context 'given valid credentials' do
       before :each do
-        post(:create, :email => @user.email, :password => @user.password)
+        post(:create, :email => user.email, :password => user.password)
       end
 
       it 'sets the session user_id' do
-        session[:user_id].should == @user.id
+        session[:user_id].should == user.id
       end
 
       it 'flashes a success message' do
@@ -28,7 +25,7 @@ describe SessionsController do
 
     context 'given invalid credentials' do
       before :each do
-        post(:create, :email => @user.email, :password => 'wrongpassword')
+        post(:create, :email => user.email, :password => 'wrongpassword')
       end
 
       it 'sets the session user_id to nil' do
@@ -47,7 +44,7 @@ describe SessionsController do
 
   describe '#destroy' do
     before :each do
-      session[:user_id] = @user.id
+      session[:user_id] = user.id
       delete(:destroy)
     end
 

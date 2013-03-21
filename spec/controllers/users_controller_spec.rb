@@ -6,31 +6,28 @@ describe UsersController do
   describe '#new' do
     before :each do
       get(:new)
-      @user = assigns(:user)
     end
 
     it 'initializes an instance of User' do
-      @user.should be_instance_of User
+      assigns(:user).should be_instance_of User
     end
 
     it "doesn't save the user record" do
-      @user.should be_new_record
+      assigns(:user).should be_new_record
     end
   end
 
   describe '#create' do
-    before :each do
-      @valid_params = {
-        :username => 'billy',
-        :email => 'b@b.com',
-        :password => 'b',
-        :password_confirmation => 'b',
-      }
-    end
+    let(:valid_params) { {
+      :username => 'billy',
+      :email => 'b@b.com',
+      :password => 'b',
+      :password_confirmation => 'b',
+    } }
 
     context 'given valid params' do
       before :each do
-        post(:create, :user => @valid_params)
+        post(:create, :user => valid_params)
       end
 
       it 'flashes a success message' do
@@ -49,7 +46,7 @@ describe UsersController do
 
     context 'given an invalid email' do
       before :each do
-        post(:create, :user => @valid_params.merge(:password => 'c'))
+        post(:create, :user => valid_params.merge(:password => 'c'))
       end
 
       it 'flashes an error' do

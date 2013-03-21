@@ -1,48 +1,42 @@
 require 'spec_helper'
 
 describe User do
-  describe '#update_attributes' do
-    before :each do
-      @user = FactoryGirl.create(:user)
-    end
+  let(:user) { create(:user) }
 
+  describe '#update_attributes' do
     it 'does not mass assign id' do
       new_id = UUIDTools::UUID.random_create.to_s
-      @user.update_attributes(:id => new_id)
-      @user.id.should_not == new_id
+      user.update_attributes(:id => new_id)
+      user.id.should_not == new_id
     end
 
     it 'does mass assign username' do
-      @user.update_attributes(:username => 'wah!')
-      @user.username.should == 'wah!'
+      user.update_attributes(:username => 'wah!')
+      user.username.should == 'wah!'
     end
 
     it 'does mass assign email' do
-      @user.update_attributes(:email => 'my@awesome.com')
-      @user.email.should == 'my@awesome.com'
+      user.update_attributes(:email => 'my@awesome.com')
+      user.email.should == 'my@awesome.com'
     end
   end
 
   describe '.authenticate' do
-    before :each do
-      @user = FactoryGirl.create(:user)
-    end
-
     context "when given valid credentials" do
       it "returns an instance of user" do
-        User.authenticate(@user.email, @user.password).should == @user
+        User.authenticate(user.email, user.password).should == user
       end
     end
 
     context "when given invalid password" do
       it "returns false" do
-        User.authenticate(@user.email, "bad password").should be_false
+        User.authenticate(user.email, "bad password").should be_false
       end
     end
 
     context "when given invalid email" do
       it "returns false" do
-        User.authenticate("bad email", @user.password).should be_false
+        User.authenticate("bad email", user.password).should be_false
       end
     end
   end
