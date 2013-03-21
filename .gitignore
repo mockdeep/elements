@@ -7,4 +7,4 @@ doc/
 *.swp
 *.swo
 coverage
-/bin
+/binstubs
