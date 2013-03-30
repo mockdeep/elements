@@ -2,14 +2,13 @@
 
 %h3
   View:
-  = params[:view] ? link_to('Tree', elements_path) : "Tree"
-  |
   - if params[:view] == 'ranked'
-    Ranked
+    = link_to('Tree', elements_path)
+    | Ranked
   - else
+    Tree |
     = link_to('Ranked', elements_path(:view => 'ranked'))
 
 %h3= link_to('Add new Element', new_element_path)
 %ul
-  - @elements.each do |element|
-    = render 'tree', :element => element
+  = render @elements

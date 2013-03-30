@@ -14,5 +14,4 @@
       :confirm => 'Delete this element?')
   - if element.children.any?
     %ul
-      - element.children.each do |child|
-        = render 'tree', :element => child
+      = render element.children
