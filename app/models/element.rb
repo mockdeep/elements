@@ -33,6 +33,15 @@ class Element < ActiveRecord::Base
     order("rank #{direction}")
   end
 
+  def self.filtered_on(param)
+    case param
+    when 'ranked'
+      ranked.leafs
+    else
+      roots
+    end
+  end
+
   def done=(done_var)
     if done_var
       self.done_at = Time.zone.now

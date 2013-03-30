@@ -2,11 +2,7 @@ class ElementsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    if params[:view] == 'ranked'
-      @elements = current_user.elements.ranked.leafs
-    else
-      @elements = current_user.elements.roots
-    end
+    @elements = current_user.elements.filtered_on(params[:view])
   end
 
   def new
