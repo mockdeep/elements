@@ -6,6 +6,4 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jit
-//= require d3
 //= require_tree .
