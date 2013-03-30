@@ -26,6 +26,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'factory_girl_rails'
   gem 'faker'
   gem 'jasmine'
   gem 'rails_best_practices'
@@ -34,12 +35,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_girl_rails'
-  gem 'fakeweb'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'rb-inotify'
   gem 'simplecov'
   gem 'spork'
   gem 'turn', :require => false
+  gem 'vcr'
+  gem 'webmock'
 end
