@@ -162,7 +162,7 @@ describe Element do
 
       it 'marks child elements as done' do
         parent_element.done = true
-        child_element.done_at.should_not be_nil
+        child_element.reload.done_at.should_not be_nil
       end
 
       it 'does not mark parent elements as done' do

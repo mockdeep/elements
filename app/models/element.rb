@@ -5,19 +5,20 @@ class Element < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :parent, :class_name => 'Element'
-  has_many   :children,
+
+  has_many :children,
     :class_name => 'Element',
     :foreign_key => :parent_id,
     :dependent => :destroy
 
+  validates :title, :user, :presence => true
+
   before_save :update_rank
 
-  validates_presence_of :title, :user
+  default_scope -> { where(:done_at => nil).includes(:children) }
 
-  scope :roots, where(:parent_id => nil)
-  scope :children, where('parent_id IS NOT NULL')
-
-  default_scope :conditions => { :done_at => nil }, :include => [:children]
+  scope :roots, -> { where(:parent_id => nil) }
+  scope :children, -> { where('parent_id IS NOT NULL') }
 
   def self.leafs
     where(<<-SQL)
@@ -33,13 +34,9 @@ class Element < ActiveRecord::Base
   end
 
   def done=(done_var)
-    # TODO: bad queries!
     if done_var
       self.done_at = Time.zone.now
-      children.each do |child|
-        child.done = true
-        child.save
-      end
+      children.update_all(:done_at => done_at)
     else
       self.done_at = nil
     end
