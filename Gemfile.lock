@@ -246,7 +246,7 @@ DEPENDENCIES
   jquery-rails
   pg
   quiet_assets
-  rails
+  rails (~> 3.2.13)
   rails_best_practices
   rb-inotify
   rspec-rails
