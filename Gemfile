@@ -4,7 +4,7 @@ ruby '2.1.5'
 
 gem 'rails', '~> 3.2.13'
 
-gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'bcrypt-ruby', '~> 3.0.1', :require => 'bcrypt'
 gem 'bootstrap-sass'
 gem 'dynamic_form'
 gem 'haml-rails'

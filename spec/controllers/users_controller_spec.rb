@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe UsersController do
-  render_views
-
   describe '#new' do
     before :each do
       get(:new)

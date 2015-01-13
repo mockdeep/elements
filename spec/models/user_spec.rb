@@ -30,13 +30,13 @@ describe User do
 
     context "when given invalid password" do
       it "returns false" do
-        User.authenticate(user.email, "bad password").should be_false
+        User.authenticate(user.email, "bad password").should be false
       end
     end
 
     context "when given invalid email" do
       it "returns false" do
-        User.authenticate("bad email", user.password).should be_false
+        User.authenticate("bad email", user.password).should be_nil
       end
     end
   end

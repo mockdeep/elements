@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ElementsController do
-  render_views
   let(:element1) { create(:element) }
   let(:user) { element1.user }
   let(:element2) { create(:element, :parent => element1, :user => user) }
