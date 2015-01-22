@@ -10,15 +10,15 @@ describe SessionsController do
       end
 
       it 'sets the session user_id' do
-        session[:user_id].should == user.id
+        expect(session[:user_id]).to eq user.id
       end
 
       it 'flashes a success message' do
-        flash[:notice].should == 'Logged in!'
+        expect(flash[:notice]).to eq 'Logged in!'
       end
 
       it 'redirects to root_path' do
-        response.should redirect_to(root_path)
+        expect(response).to redirect_to(root_path)
       end
     end
 
@@ -28,15 +28,15 @@ describe SessionsController do
       end
 
       it 'sets the session user_id to nil' do
-        session[:user_id].should be_nil
+        expect(session[:user_id]).to be_nil
       end
 
       it 'flashes an error message' do
-        flash.now[:error].should == 'Invalid email or password'
+        expect(flash.now[:error]).to eq 'Invalid email or password'
       end
 
       it 'renders the new template' do
-        response.should render_template('sessions/new')
+        expect(response).to render_template('sessions/new')
       end
     end
   end
@@ -48,15 +48,15 @@ describe SessionsController do
     end
 
     it 'sets the session user_id to nil' do
-      session[:user_id].should be_nil
+      expect(session[:user_id]).to be_nil
     end
 
     it 'flashes a logged out message' do
-      flash[:notice].should == 'Logged out!'
+      expect(flash[:notice]).to eq 'Logged out!'
     end
 
     it 'redirects to the root url' do
-      response.should redirect_to(root_url)
+      expect(response).to redirect_to(root_url)
     end
   end
 end

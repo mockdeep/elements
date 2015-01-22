@@ -31,10 +31,10 @@ group :development, :test do
   gem 'jasmine'
   gem 'rails_best_practices'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
 end
 
 group :test do
+  gem 'shoulda-matchers', require: false
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'rb-inotify'

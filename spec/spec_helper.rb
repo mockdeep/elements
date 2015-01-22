@@ -3,13 +3,14 @@ require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
+require 'shoulda/matchers'
+
 Spork.prefork do
   require 'simplecov'
   SimpleCov.start 'rails'
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
   Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
 
   # Requires supporting ruby files with custom matchers and macros, etc,

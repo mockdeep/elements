@@ -10,13 +10,13 @@ describe ApplicationController do
       end
 
       it 'returns the user currently signed in' do
-        controller.send(:current_user).should == user
+        expect(controller.send(:current_user)).to eq user
       end
     end
 
     context 'when there is not a user signed in' do
       it 'returns nil' do
-        controller.send(:current_user).should be_nil
+        expect(controller.send(:current_user)).to be_nil
       end
     end
 
@@ -37,12 +37,12 @@ describe ApplicationController do
     it "clears the session" do
       session[:blah] = 'something'
       controller.send(:current_user=, user)
-      session[:blah].should be_nil
+      expect(session[:blah]).to be_nil
     end
 
     it "sets the current user" do
       controller.send(:current_user=, user)
-      session[:user_id].should == user.id
+      expect(session[:user_id]).to eq user.id
     end
   end
 end

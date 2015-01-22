@@ -8,11 +8,11 @@ describe UUIDHelper do
         id = element.id
         element.id = 'blah'
         element.save!
-        Element.find(id).should_not be_nil
+        expect(Element.find(id)).not_to be_nil
       end
 
       it 'sets the uuid before create' do
-        element.id.should =~ /^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/
+        expect(element.id).to match /^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/
       end
     end
   end

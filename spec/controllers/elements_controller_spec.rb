@@ -21,7 +21,7 @@ describe ElementsController do
     context 'with no parameters' do
       it 'assigns root elements' do
         get(:index)
-        assigns(:elements).should == [ element1 ]
+        expect(assigns(:elements)).to eq [ element1 ]
       end
     end
 
@@ -30,7 +30,7 @@ describe ElementsController do
         element2.update_attribute(:value, 8)
         element3 = create(:element, :user => user, :value => 9)
         get(:index, :view => 'ranked')
-        assigns(:elements).should == [ element3, element2 ]
+        expect(assigns(:elements)).to eq [ element3, element2 ]
       end
     end
   end
@@ -42,18 +42,18 @@ describe ElementsController do
       end
 
       it 'initializes an element' do
-        assigns(:element).should be_new_record
+        expect(assigns(:element)).to be_new_record
       end
 
       it 'builds an element without a parent' do
-        assigns(:element).parent.should be_nil
+        expect(assigns(:element).parent).to be_nil
       end
     end
 
     context 'given a parent_id' do
       it 'builds an element with a parent' do
         get(:new, :parent_id => element1.id)
-        assigns(:element).parent.should == element1
+        expect(assigns(:element).parent).to eq element1
       end
     end
   end
@@ -65,23 +65,23 @@ describe ElementsController do
       end
 
       it 'creates the element for the current user' do
-        user.elements.should include assigns(:element)
+        expect(user.elements).to include assigns(:element)
       end
 
       it 'assigns the title of the element' do
-        assigns(:element).title.should == 'do stuff'
+        expect(assigns(:element).title).to eq 'do stuff'
       end
 
       it 'saves the element' do
-        assigns(:element).should_not be_new_record
+        expect(assigns(:element)).not_to be_new_record
       end
 
       it 'creates an element without a parent' do
-        assigns(:element).parent.should be_nil
+        expect(assigns(:element).parent).to be_nil
       end
 
       it 'flashes a success notice' do
-        flash[:notice].should =~ /created successfully/
+        expect(flash[:notice]).to match /created successfully/
       end
     end
 
@@ -96,30 +96,30 @@ describe ElementsController do
       end
 
       it 'creates an element for the current user' do
-        user.elements.should include assigns(:element)
+        expect(user.elements).to include assigns(:element)
       end
 
       it 'assigns the title of the element' do
-        assigns(:element).title.should == 'do more stuff'
+        expect(assigns(:element).title).to eq 'do more stuff'
       end
 
       it 'saves the element' do
-        assigns(:element).should_not be_new_record
+        expect(assigns(:element)).not_to be_new_record
       end
 
       it 'flashes a success notice' do
-        flash[:notice].should =~ /created successfully/
+        expect(flash[:notice]).to match /created successfully/
       end
 
       it 'creates an element with a parent' do
-        element2.children.should == [ assigns(:element) ]
+        expect(element2.children).to eq [ assigns(:element) ]
       end
     end
 
     context 'given invalid attributes' do
       it 'gives an error' do
         post(:create, :element => { :title => '' })
-        flash.now[:error].should =~ /problem creating/
+        expect(flash.now[:error]).to match /problem creating/
       end
     end
   end
@@ -128,7 +128,7 @@ describe ElementsController do
     context 'given a valid element id' do
       it 'finds the appropriate element' do
         get(:edit, :id => element1.id)
-        assigns(:element).should == element1
+        expect(assigns(:element)).to eq element1
       end
     end
   end
@@ -140,11 +140,11 @@ describe ElementsController do
       end
 
       it 'updates the element' do
-        element1.reload.title.should == 'blah'
+        expect(element1.reload.title).to eq 'blah'
       end
 
       it 'flashes a success notice' do
-        flash[:notice].should =~ /updated successfully/
+        expect(flash[:notice]).to match /updated successfully/
       end
     end
 
@@ -155,11 +155,11 @@ describe ElementsController do
       end
 
       it 'does not change the element title' do
-        element1.reload.title.should == @title
+        expect(element1.reload.title).to eq @title
       end
 
       it 'flashes an error notice' do
-        flash.now[:error].should =~ /problem updating/
+        expect(flash.now[:error]).to match /problem updating/
       end
     end
   end
@@ -171,11 +171,11 @@ describe ElementsController do
       end
 
       it 'destroys the element' do
-        Element.find_by_id(element1.id).should be_nil
+        expect(Element.find_by_id(element1.id)).to be_nil
       end
 
       it 'flashes a deleted notice' do
-        flash[:notice].should =~ /Element deleted/
+        expect(flash[:notice]).to match /Element deleted/
       end
     end
 
@@ -193,7 +193,7 @@ describe ElementsController do
 
       it 'does not destroy the element' do
         lambda { delete(:destroy, :id => element1.id) }
-        Element.find_by_id(element1.id).should_not be_nil
+        expect(Element.find_by_id(element1.id)).not_to be_nil
       end
     end
   end
